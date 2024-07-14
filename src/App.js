@@ -1,4 +1,7 @@
-export default function Form({ status = "error" }) {
+export default function Form({
+  // Try 'submitting', 'error', 'success':
+  status = "submitting",
+}) {
   if (status === "success") {
     return <h1>That's right!</h1>;
   }
@@ -9,9 +12,14 @@ export default function Form({ status = "error" }) {
         In which city is there a billboard that turns air into drinkable water?
       </p>
       <form>
-        <textarea />
+        <textarea disabled={status === "submitting"} />
         <br />
-        <button>Submit</button>
+        <button disabled={status === "empty" || status === "submitting"}>
+          Submit
+        </button>
+        {status === "error" && (
+          <p className="Error">Good guess but a wrong answer. Try again!</p>
+        )}
       </form>
     </>
   );
